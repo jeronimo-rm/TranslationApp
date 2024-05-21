@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" name="close" (click)="modalCtrl.dismiss()" />
+    <ion-title>🗺 LANGUAGES 友達</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let language of languages">
+      {{ language.name }} - {{ language.code }}
+    </ion-item>
+  </ion-list>
+</ion-content>
