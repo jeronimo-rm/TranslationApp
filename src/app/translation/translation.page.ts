@@ -24,7 +24,7 @@ import { ModalComponent } from '../modals/modal/modal.component';
       <ion-card
               button
               id="{{ 'open-modal' + languages }}"
-              (click)="openModal(languages)"
+              (click)="openModal()"
             ><ion-button>aqui</ion-button></ion-card>
       <ion-button (click)="translation(textArea.value)" expand="block" shape="round">
         Translation
@@ -90,26 +90,29 @@ import { ModalComponent } from '../modals/modal/modal.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TranslationPage implements OnInit{
-   languages: any[] = [];
+  languages = signal<any | undefined>(undefined);
 
   translationText = signal<string | undefined>(undefined)
 
   translationService = inject(TranslationService);
+  modalCtrl = inject(ModalController);
 
   constructor() { }
 
 
-  modalCtrl = inject(ModalController);
 
   ngOnInit(): void {
-this.getLanguages()
+    this.getLanguages()
   }
 
 
   async getLanguages() {
     try {
-      const response = await this.translationService.languages();
+      const response: any = await this.translationService.languages();
       console.log('response', response);
+
+      this.languages.set(response.data.languages);
+
     } catch (error) {
       console.log('error', error);
     }
@@ -128,10 +131,10 @@ async translation(text:string | null | undefined) {
   }
 
 }
- async openModal(topic: any) {
+ async openModal() {
     const modal = await this.modalCtrl.create({
     component: ModalComponent,
-    componentProps: { topic },
+    componentProps: { languages: this.languages()},
     breakpoints: [0, 0.5, 0.9],
     initialBreakpoint: 0.9,
   });
