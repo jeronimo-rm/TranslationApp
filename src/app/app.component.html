@@ -1,3 +1,20 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" side="end">
+      <ion-header>
+        <ion-toolbar color="tertiary">
+          <ion-buttons slot="start" (click)="menuToggle.close()">
+            <ion-icon slot="start" name="close" />
+          </ion-buttons>
+          <ion-title>Menu Content</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item routerLink="/translation" (click)="menuToggle.close()">
+          <ion-label color="dark">Tranlation Page</ion-label>
+        </ion-item>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content" />
+  </ion-split-pane>
 </ion-app>
