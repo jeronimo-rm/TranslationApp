@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <!-- <ion-icon slot="start" name="close" (click)="modalCtrl.dismiss()" /> -->
+    <ion-icon slot="start" name="close" (click)="modalCtrl.dismiss()" />
     <ion-title>🗺 LANGUAGES 友達</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
   <ion-list>
     @for (language of languages; track $index) {
       <ion-item (click)="selectLanguage(language)">
-       {{ flagIcon(language.language) }} {{ language.language | titlecase}}
+        {{ flagIcon(language.language) }} {{ language.language | titlecase }}
       </ion-item>
     }
   </ion-list>

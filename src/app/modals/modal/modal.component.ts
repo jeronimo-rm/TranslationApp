@@ -1,13 +1,5 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  Component,
-  Input,
-  OnInit,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { NgStyle, TitleCasePipe } from '@angular/common';
-import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 import {
   IonHeader,
   IonToolbar,
@@ -30,56 +22,55 @@ import {
   IonIcon,
   ModalController,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { close } from 'ionicons/icons';
+import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+
+const imports = [
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonBackButton,
+  IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonImg,
+  IonModal,
+  IonIcon,
+  NgStyle,
+  TitleCasePipe,
+];
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   standalone: true,
-  imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
-    IonBackButton,
-    IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonCardTitle,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonImg,
-    IonModal,
-    IonIcon,
-    NgStyle,
-    TitleCasePipe
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports,
 })
-export class ModalComponent implements OnInit {
-  @Input({required:true}) languages: any;
+export class ModalComponent {
+  @Input({ required: true }) languages: any;
 
   modalCtrl = inject(ModalController);
 
-
-  flagIcon(lang:string) {
-    return getUnicodeFlagIcon('US');
+  flagIcon(lang: string) {
+    return getUnicodeFlagIcon(lang);
   }
 
-  constructor() {}
-
-  ngOnInit() {
-    console.log('translation', getUnicodeFlagIcon('🇺🇸'));
+  constructor() {
+    addIcons({ close });
   }
 
-
-  selectLanguage(language: any) {
-    console.log('Selected language:', language);
+  selectLanguage(language: string) {
     this.modalCtrl.dismiss(language);
   }
 }
