@@ -162,7 +162,7 @@ export class TranslationPage implements OnInit {
   async getLanguages() {
     try {
       const response: any = await this.translationService.languages();
-
+      console.log('Languages fetched:', response.data.languages);
       this.languages.set(response.data.languages);
     } catch (error) {
       console.log('error', error);

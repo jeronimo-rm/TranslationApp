@@ -3,6 +3,14 @@
     <ion-icon slot="start" name="close" (click)="modalCtrl.dismiss()" />
     <ion-title>🗺 LANGUAGES 友達</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      #searchBar
+      animated="true"
+      placeholder="search"
+      (ionInput)="search2()"
+    />
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
