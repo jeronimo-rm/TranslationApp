@@ -38,7 +38,7 @@ type LangType = 'target' | 'source';
         <ion-buttons slot="start">
           <ion-back-button />
         </ion-buttons>
-        <ion-title>Translation</ion-title>
+        <ion-title class="txt-ctr">Translation</ion-title>
         <ion-img src="assets/img/trln.png" class="right-img"></ion-img>
       </ion-toolbar>
     </ion-header>
@@ -87,6 +87,9 @@ type LangType = 'target' | 'source';
           font-size: 20px;
           font-weight: 800;
         }
+      }
+      .txt-ctr{
+        text-align: center;
       }
       .right-img {
         width: 60px;
@@ -187,14 +190,12 @@ export class TranslationPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ModalComponent,
       componentProps: { languages: this.languages() },
-      breakpoints: [0, 0.5, 0.9],
-      initialBreakpoint: 0.9,
     });
     modal.present();
 
     const { data } = await modal.onWillDismiss();
 
-    this[type].set(data.language);
+    this[type].set(data);
   }
 
   flagIcon(lang: string) {

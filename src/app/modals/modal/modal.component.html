@@ -1,22 +1,22 @@
 <ion-header>
   <ion-toolbar>
     <ion-icon slot="start" name="close" (click)="modalCtrl.dismiss()" />
-    <ion-title>🗺 LANGUAGES 友達</ion-title>
+    <ion-title class="txt-ctr">🗺 LANGUAGES 友達</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar
       #searchBar
-      animated="true"
+      animated="false"
       placeholder="search"
-      (ionInput)="search2()"
+      (ionInput)="search()"
     />
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    @for (language of languages; track $index) {
-      <ion-item (click)="selectLanguage(language)">
+    @for (language of list; track language) {
+      <ion-item (click)="selectLanguage(language.language)">
         {{ flagIcon(language.language) }} {{ language.language | titlecase }}
       </ion-item>
     }

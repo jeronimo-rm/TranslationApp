@@ -1,4 +1,5 @@
-import { Component, Input, inject, viewChild, signal} from '@angular/core';
+import { Component, Input, inject, viewChild, signal, OnInit, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { NgStyle, TitleCasePipe } from '@angular/common';
 import {
   IonHeader,
@@ -59,35 +60,39 @@ const imports = [
   ion-search{
     margin-bottom: -50px;
   }
+  .txt-ctr{
+    text-align: center;
+  }
   `],
   standalone: true,
   imports,
 })
-export class ModalComponent {
-  @Input({ required: true }) languages: any;
+export class ModalComponent implements OnInit {
+  @Input({ required: true }) languages: LanguagesList | undefined;
 
   searchBar = viewChild<IonSearchbar>(IonSearchbar);
 
-  list = signal<LanguagesList>([]);
+  list: LanguagesList | undefined = [];
   language = signal<Language | undefined>;
 
-  search(text: string | null | undefined) {
-    if (!text) {
-      return this.languages.set(this.list());
-    } else {
-      const list = this.list().filter((items) => items.language.includes(text));
-      return this.languages.set(list);
+  constructor() {
+    addIcons({ close });
+  }
+
+  ngOnInit(): void {
+    if (this.languages) {
+      this.list = this.languages;
     }
   }
 
-  search2() {
+  search() {
     const text = this.searchBar()?.value;
 
     if (!text) {
-      return this.languages.set(this.list());
+      return this.list = this.languages;
     } else {
-      const list = this.list().filter((items) => items.language.includes(text));
-      return this.languages.set(list);
+      const list = this.languages?.filter((items) => items.language.includes(text));
+      return this.list = list;
     }
   }
 
@@ -95,10 +100,6 @@ export class ModalComponent {
 
   flagIcon(lang: string) {
     return getUnicodeFlagIcon(lang);
-  }
-
-  constructor() {
-    addIcons({ close });
   }
 
   selectLanguage(language: string) {
