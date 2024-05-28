@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  inject,
-  signal,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -23,10 +17,17 @@ import {
   IonLabel,
   IonImg,
   ModalController,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonText,
 } from '@ionic/angular/standalone';
 import { TranslationService } from '../services/translation.service';
 import { ModalComponent } from '../modals/modal/modal.component';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+import { addIcons } from 'ionicons';
+import { chevronDownOutline } from 'ionicons/icons';
 
 type LangType = 'target' | 'source';
 
@@ -37,20 +38,18 @@ type LangType = 'target' | 'source';
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button />
+          <ion-img src="assets/img/trln.png" class="size-img" />
         </ion-buttons>
-        <ion-title class="txt-ctr">Translation</ion-title>
-        <ion-img src="assets/img/trln.png" class="right-img"></ion-img>
+        <ion-title> Translation </ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
-      <br /><br />
-
       <ion-grid fixed>
         <ion-row>
           <ion-col size="6" (click)="openModal('source')">
             <ion-text style="color: #ccc;">
-              <h1>Input ⌄</h1>
+              <h1>Input <ion-icon name="chevron-down-outline" /></h1>
             </ion-text>
             <ion-label>
               {{ flagIcon(source()) }} {{ (source() | titlecase) || '--' }}
@@ -58,7 +57,7 @@ type LangType = 'target' | 'source';
           </ion-col>
           <ion-col size="6" (click)="openModal('target')">
             <ion-text style="color: #ccc;">
-              <h1>Output ⌄</h1>
+              <h1>Output <ion-icon name="chevron-down-outline" /></h1>
             </ion-text>
             <ion-label>
               {{ flagIcon(target()) }} {{ (target() | titlecase) || '--' }}
@@ -88,11 +87,11 @@ type LangType = 'target' | 'source';
           font-weight: 800;
         }
       }
-      .txt-ctr{
+      .txt-ctr {
         text-align: center;
       }
-      .right-img {
-        width: 60px;
+      .size-img {
+        width: 15vw;
       }
       ion-content {
         --background: #353839;
@@ -144,8 +143,12 @@ type LangType = 'target' | 'source';
     IonItem,
     IonLabel,
     IonImg,
+    IonIcon,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonText,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TranslationPage implements OnInit {
   languages = signal<any | undefined>(undefined);
@@ -156,7 +159,9 @@ export class TranslationPage implements OnInit {
   translationService = inject(TranslationService);
   modalCtrl = inject(ModalController);
 
-  constructor() {}
+  constructor() {
+    addIcons({ chevronDownOutline });
+  }
 
   ngOnInit(): void {
     this.getLanguages();
@@ -165,7 +170,6 @@ export class TranslationPage implements OnInit {
   async getLanguages() {
     try {
       const response: any = await this.translationService.languages();
-      console.log('Languages fetched:', response.data.languages);
       this.languages.set(response.data.languages);
     } catch (error) {
       console.log('error', error);

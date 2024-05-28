@@ -11,12 +11,13 @@ export const routes: Routes = [
       import('./translation/translation.page').then((m) => m.TranslationPage),
   },
   {
+    path: 'camera',
+    loadComponent: () =>
+      import('./camera/camera.page').then((m) => m.CameraPage),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  },  {
-    path: 'camera',
-    loadComponent: () => import('./camera/camera.page').then( m => m.CameraPage)
   },
-
 ];
