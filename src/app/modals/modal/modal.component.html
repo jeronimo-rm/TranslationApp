@@ -4,12 +4,7 @@
     <ion-title class="txt-ctr">🗺 LANGUAGES 友達</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar
-      #searchBar
-      animated="false"
-      placeholder="search"
-      (ionInput)="search()"
-    />
+    <ion-searchbar #searchBar animated="false" placeholder="search" (ionInput)="search()" />
   </ion-toolbar>
 </ion-header>
 
@@ -21,4 +16,8 @@
       </ion-item>
     }
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content />
+  </ion-infinite-scroll>
 </ion-content>
