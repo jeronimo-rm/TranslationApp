@@ -5,15 +5,14 @@ import {
   IonTitle,
   IonContent,
   IonMenuButton,
-  IonButtons,
-} from '@ionic/angular/standalone';
+  IonButtons, IonImg } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonImg,
     IonButtons,
     IonHeader,
     IonToolbar,
