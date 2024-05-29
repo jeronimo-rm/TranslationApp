@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -6,8 +6,21 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonCard,
+  IonCardContent,
+  IonLabel,
 } from '@ionic/angular/standalone';
 import { Geolocation } from '@capacitor/geolocation';
+
+interface Coords {
+  latitude: number;
+  longitude: number;
+  accuracy: number;
+  altitudeAccuracy: number | null | undefined;
+  altitude: number | null;
+  speed: number | null;
+  heading: number | null;
+}
 
 @Component({
   selector: 'app-geolocation',
@@ -15,6 +28,9 @@ import { Geolocation } from '@capacitor/geolocation';
   styleUrls: ['./geolocation.page.scss'],
   standalone: true,
   imports: [
+    IonLabel,
+    IonCardContent,
+    IonCard,
     IonContent,
     IonHeader,
     IonTitle,
@@ -24,6 +40,8 @@ import { Geolocation } from '@capacitor/geolocation';
   ],
 })
 export class GeolocationPage implements OnInit {
+  coords = signal<Coords | undefined>(undefined);
+
   constructor() {}
 
   ngOnInit(): void {
@@ -32,8 +50,8 @@ export class GeolocationPage implements OnInit {
 
   async printCurrentPosition() {
     try {
-      const coordinates = await Geolocation.getCurrentPosition();
-      console.log('Current position:', coordinates);
+      const { coords } = await Geolocation.getCurrentPosition();
+      this.coords.set(coords);
     } catch (erro) {
       console.log('Erro', erro);
     }

@@ -10,4 +10,18 @@
       <ion-title size="large">Geolocation</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-label>latitude: {{ coords()?.latitude ?? '-'  }}</ion-label>
+      <ion-label>longitude: {{ coords()?.longitude ?? '-'  }} </ion-label>
+      <ion-label>heading: {{ coords()?.heading ?? '-'  }} </ion-label>
+      <ion-label>speed: {{ coords()?.speed ?? '-' }}</ion-label>
+      <ion-label>altitudeAccuracy: {{ coords()?.altitudeAccuracy ?? '-' }}</ion-label>
+      <ion-label>accuracy: {{ coords()?.accuracy ?? '-' }}</ion-label>
+      <ion-label>altitude: {{ coords()?.altitude ?? '-' }}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
