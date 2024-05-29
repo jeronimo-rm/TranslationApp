@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnChanges, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -11,6 +11,7 @@ import {
   IonLabel,
 } from '@ionic/angular/standalone';
 import { Geolocation } from '@capacitor/geolocation';
+import { Observable, Subscription } from 'rxjs';
 
 interface Coords {
   latitude: number;
@@ -45,15 +46,26 @@ export class GeolocationPage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.printCurrentPosition();
+    // this.printCurrentPosition();
+    this.watchPosition();
+  }
+
+  async watchPosition() {
+    try {
+      await Geolocation.watchPosition({}, (position, err) => {
+        this.coords.set(position?.coords);
+      });
+    } catch (error) {
+      console.log('Error', error);
+    }
   }
 
   async printCurrentPosition() {
     try {
       const { coords } = await Geolocation.getCurrentPosition();
       this.coords.set(coords);
-    } catch (erro) {
-      console.log('Erro', erro);
+    } catch (error) {
+      console.log('Error', error);
     }
   }
 }
