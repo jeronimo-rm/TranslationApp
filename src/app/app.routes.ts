@@ -19,5 +19,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },  {
+    path: 'geolocation',
+    loadComponent: () => import('./geolocation/geolocation/geolocation.page').then( m => m.GeolocationPage)
   },
+
 ];
