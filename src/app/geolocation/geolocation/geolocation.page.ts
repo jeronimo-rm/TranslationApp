@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -9,9 +9,10 @@ import {
   IonCard,
   IonCardContent,
   IonLabel,
+  IonButtons,
+  IonBackButton,
 } from '@ionic/angular/standalone';
 import { Geolocation } from '@capacitor/geolocation';
-import { Observable, Subscription } from 'rxjs';
 
 interface Coords {
   latitude: number;
@@ -29,6 +30,8 @@ interface Coords {
   styleUrls: ['./geolocation.page.scss'],
   standalone: true,
   imports: [
+    IonBackButton,
+    IonButtons,
     IonLabel,
     IonCardContent,
     IonCard,
